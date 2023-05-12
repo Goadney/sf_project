@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'un article |
+	{{parent()}}
+{% endblock %}
+
+
+{% block body %}
+	<a href="{{path('admin_article_index')}}" class="me-auto btn btn-warning ms-3 mt-3">Retour</a>
+	<section class="container mt-4">
+		<h1 class="text-center">Modification d'articles</h1>
+		{% include "Backend/Article/_form.html.twig" with {button_label : 'Modification'} %}
+
+	</section>
+{% endblock %}

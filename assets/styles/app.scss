@@ -1,2 +1,8 @@
+@import "./_variables.scss";
+// on import variable avant boostrap car boostrap reecrira pas les variables
+
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
+
+// on importe après boostrap car sinon boostrap ecrase 
+@import "./_structure.scss";
