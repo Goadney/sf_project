@@ -2,7 +2,7 @@
 
 {{ form_widget(form)}}
 <div class="text-center">
-	<button class="submit btn btn-secondary">Créer l'article</button>
+	<button class="submit btn btn-secondary">{{button_label|default('save')}}</button>
 </div>
 {# il generer tout le formulaire #}
 {{form_end(form)}}
