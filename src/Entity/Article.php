@@ -6,8 +6,12 @@ use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[UniqueEntity(fields: ['titre'], message: 'Ce titre d\'article est déjà utilisé')]
 class Article
 {
     #[ORM\Id]
@@ -16,7 +20,16 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\Length(
+        min: 5,
+        max: 255,
+        minMessage: 'Le titre doit faire au minimum {{ limit }} caractères',
+        maxMessage: 'Le titre doit faire au maximum {{ limit }} caractères',
+
+    )]
+    #[Assert\NotBlank(message: 'Le titre est obligatoire')]
     private ?string $titre = null;
+
 
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields: ['titre'])]
