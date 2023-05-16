@@ -16,6 +16,7 @@
 						<h2 class="card-header">{{ article.titre }}</h2>
 						<div class="card-body">
 							<p class="card-text">{{ article.contenu }}</p>
+							<p class="card-text text-muted">{{article.user.getFullName}}</p>
 							<div class="d-flex justify-content-between">
 								<a href="{{path('admin_article_update', {id:article.id})}}" class="btn btn-warning ">Modifier</a>
 								<form action="{{path('admin_article_delete',{id:article.id})}}" method="POST" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cet article ? ')">

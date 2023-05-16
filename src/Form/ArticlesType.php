@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use Doctrine\DBAL\Types\BooleanType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,6 +30,11 @@ class ArticlesType extends AbstractType
                     'placeholder' => 'Une mise a jour dévastatrice mais ...',
                     'rows' => 5,
                 ]
+            ])
+            ->add('actif', CheckboxType::class, [
+                'label' => 'Actif ',
+                'required' => false
+
             ])
             // Il faut absolument que ce soit equivalement a un champ de la classe Article titre = titre
         ;

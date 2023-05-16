@@ -51,6 +51,8 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($article); //dump and die pour afficher le contenu de l'objet PAS EN PROD
+            $article->setUser($this->getUser());
+
             $this->repo->save($article, true);
             //verifier si le save a fonctionner
 
