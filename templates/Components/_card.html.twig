@@ -1,0 +1,38 @@
+<div class="blog-card">
+	{% if article.imageName  %}
+		<img src="{{vich_uploader_asset(article)}}" alt="Image de l'article" class="blog-card-img" loading="lazy">
+	{% else %}
+		<img src="https://picsum.photos/350/250" alt="{{article.titre}}" class="blog-card-img" loading="lazy">
+	{% endif %}
+	<div class="blog-card-content">
+		<p class="blog-card-date text-muted">{{article.createdAt|format_datetime('full','none')}}</p>
+		{# full ecrit en entier none pour pas l'heure juste le jour #}
+		{# | est un filtre en twig #}
+		<h2 class="blog-card-header">{{article.titre}}</h2>
+		<p class="blog-card-contenu">{{article.contenu|slice(0,100) ~ '...'	 }}</p>
+		<p class="blog-card-author">{{article.user.getFullName}}</p>
+		{% if app.request.get('_route') == 'admin_article_index' %}
+			<div class="d-flex justify-content-between">
+				<a href="{{path('admin_article_update', {id:article.id})}}" class="btn btn-warning ">Modifier</a>
+				<form action="{{path('admin_article_delete',{id:article.id})}}" method="POST" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cet article ? ')">
+					<input type="hidden" name="id" value="{article.id}">
+					<input type="hidden" name="token" value="{{csrf_token('delete' ~ article.id)}}">
+					<button type="submit" class="btn btn-danger">Supprimer</button>
+					{# ~ pour concatene #}
+				</form>
+			</div>
+			<div class="text-center mt-4">
+				{% if article.isActif %}
+					<p class="card-text">Publié &#x2705;</p>
+
+				{% else %}
+					<p class="card-text">Non publié &#x274C;</p>
+
+				{% endif %}
+			</div>
+		{% endif %}
+
+
+	</div>
+
+</div>

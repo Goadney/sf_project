@@ -1,0 +1,27 @@
+vich_uploader:
+  db_driver: orm
+
+  metadata:
+    type: attribute
+    # permet de dire qu'on utilise les attributs php8 pour configurer les entity
+
+  # mappings:
+  #     products:
+  #         uri_prefix: /images/products
+  #         upload_destination: '%kernel.project_dir%/public/images/products'
+  #         namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+  mappings:
+    article:
+      uri_prefix: /images/articles
+      upload_destination: "%kernel.project_dir%/public/images/articles"
+
+      # namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+      namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+      inject_on_load: false
+      delete_on_update: true
+      delete_on_remove: true
+
+    # %kernel.project_dir% var d'env symfo + kerney noyau de sympho, project dir la racine donc = sf_project
+    #le navigateur a accès que au dossier public
+    # namer pour les noms de fichier, (nom unique car "nom+timestamp")
