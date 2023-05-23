@@ -15,14 +15,14 @@ class Categorie
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 255)]
     private ?string $titre = null;
-
-    #[ORM\ManyToMany(targetEntity: article::class, inversedBy: 'article')]
-    private Collection $articles;
 
     #[ORM\Column]
     private ?bool $actif = null;
+
+    #[ORM\ManyToMany(targetEntity: Article::class, inversedBy: 'categories')]
+    private Collection $articles;
 
     public function __construct()
     {
@@ -46,30 +46,6 @@ class Categorie
         return $this;
     }
 
-    /**
-     * @return Collection<int, article>
-     */
-    public function getArticles(): Collection
-    {
-        return $this->articles;
-    }
-
-    public function addArticle(article $article): self
-    {
-        if (!$this->articles->contains($article)) {
-            $this->articles->add($article);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(article $article): self
-    {
-        $this->articles->removeElement($article);
-
-        return $this;
-    }
-
     public function isActif(): ?bool
     {
         return $this->actif;
@@ -78,6 +54,30 @@ class Categorie
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles->add($article);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        $this->articles->removeElement($article);
 
         return $this;
     }

@@ -45,6 +45,7 @@ class CategorieController extends AbstractController
         // puis on lui passe l'objet article, et il le mettra a jour tout seul
 
         $form->handleRequest($request);
+        //on verifie que la reqette est envoyé, on l'attrape
 
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($article); //dump and die pour afficher le contenu de l'objet PAS EN PROD
@@ -64,6 +65,8 @@ class CategorieController extends AbstractController
     #[Route('/update/{id}', name: '_update', methods: ['GET', 'POST'])]
     public function update(?Categorie $categorie, Request $request): Response|RedirectResponse
     {
+        //param converters, on a un id dans l'url, on place une entity dans le ()
+        // de update, donc il reconnait symfony reconnait, il va chercher une categorie avec l'id dans l'url
         if (!$categorie instanceof Categorie) {
             $this->addFlash('error', 'Categorie not found');
             return $this->redirectToRoute('admin_categorie_index');

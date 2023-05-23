@@ -11,6 +11,13 @@
 		<h2 class="blog-card-header">{{article.titre}}</h2>
 		<p class="blog-card-contenu">{{article.contenu|slice(0,100) ~ '...'	 }}</p>
 		<p class="blog-card-author">{{article.user.getFullName}}</p>
+
+
+		<p class="text-muted">
+			{% for cat in article.categories %}
+				#{{cat.titre}}
+			{% endfor %}
+		</p>
 		{% if app.request.get('_route') == 'admin_article_index' %}
 			<div class="d-flex justify-content-between">
 				<a href="{{path('admin_article_update', {id:article.id})}}" class="btn btn-warning ">Modifier</a>

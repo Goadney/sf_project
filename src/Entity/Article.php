@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
-#[UniqueEntity(fields: ['titre'], message: 'Ce titre d\'article est déjà utilisé')]
+#[UniqueEntity(fields: ['titre'], message: 'Ce titre est déjà utilisé par un autre article')]
 #[Vich\Uploadable]
 class Article
 {
@@ -27,13 +27,11 @@ class Article
     #[Assert\Length(
         min: 5,
         max: 255,
-        minMessage: 'Le titre doit faire au minimum {{ limit }} caractères',
-        maxMessage: 'Le titre doit faire au maximum {{ limit }} caractères',
-
+        minMessage: 'Le titre ne peux pas être inferieur à {{ limit }} caractères.',
+        maxMessage: 'Le titre ne peux pas être supérieur à {{ limit }} caractères.'
     )]
-    #[Assert\NotBlank(message: 'Le titre est obligatoire')]
+    #[Assert\NotBlank(message: 'Le titre ne peux pas être vide')]
     private ?string $titre = null;
-
 
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields: ['titre'])]
@@ -57,7 +55,6 @@ class Article
     #[ORM\Column]
     private ?bool $actif = null;
 
-
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
     #[Vich\UploadableField(mapping: 'article', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $imageFile = null;
@@ -69,11 +66,11 @@ class Article
     private ?int $imageSize = null;
 
     #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'articles')]
-    private Collection $article;
+    private Collection $categories;
 
     public function __construct()
     {
-        $this->article = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,25 +210,25 @@ class Article
     /**
      * @return Collection<int, Categorie>
      */
-    public function getArticle(): Collection
+    public function getCategories(): Collection
     {
-        return $this->article;
+        return $this->categories;
     }
 
-    public function addArticle(Categorie $article): self
+    public function addCategory(Categorie $category): self
     {
-        if (!$this->article->contains($article)) {
-            $this->article->add($article);
-            $article->addArticle($this);
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->addArticle($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Categorie $article): self
+    public function removeCategory(Categorie $category): self
     {
-        if ($this->article->removeElement($article)) {
-            $article->removeArticle($this);
+        if ($this->categories->removeElement($category)) {
+            $category->removeArticle($this);
         }
 
         return $this;

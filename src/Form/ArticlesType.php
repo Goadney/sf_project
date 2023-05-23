@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Categorie;
 use Doctrine\DBAL\Types\BooleanType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -23,6 +25,23 @@ class ArticlesType extends AbstractType
                 'attr' => [
                     'placeholder' => 'La dernière maj d\'Apple !'
                 ]
+            ])
+            ->add('categories', EntityType::class, [
+                'class' =>Categorie::class,
+                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.actif = true')
+                        ->orderBy('c.titre', 'ASC');
+                       
+                },
+                'choice_label' => 'titre',  
+                'expanded' => false,
+                'multiple' => true,
+                'by_reference' => false,
+                //by reference va tout remplir dans l'objet direct sans faire de trateimeent derriere
+                //en many to many symfony doit faire une action supplémentaire pour remplir les autres tables
+                'autocomplete' => true,
+
             ])
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Image :',

@@ -7,13 +7,13 @@
 
 {% block body %}
 	<section class="container mt-4">
-		<h1 class="text-center">Administration des categories</h1>
-		<a href="{{ path('admin_categorie_create') }}" class="btn btn-secondary">Créer une categorie</a>
+		<h1 class="text-center">Administration des catégories</h1>
+		<a href="{{ path('admin_categorie_create') }}" class="btn btn-secondary">Créer une catégorie</a>
+		<div class="blog-list">
+			{% for categorie in categories %}
+				{% include "Components/_cardCateg.html.twig" %}
 
-		{% for categorie in categories %}
-			{% include "Components/_cardCateg.html.twig" %}
+			{% endfor %}
 
-		{% endfor %}
-
-	</section>
-{% endblock %}
+		</section>
+	{% endblock %}

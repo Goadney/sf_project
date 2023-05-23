@@ -29,7 +29,7 @@ class ArticleController extends AbstractController
         return $this->render(
             'Backend/Article/index.html.twig',
             [
-                'articles' => $this->repo->findAll()
+                'articles' => $this->repo->findAllWithTags()
             ]
         );
     }
