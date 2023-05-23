@@ -22,13 +22,8 @@
 				</form>
 			</div>
 			<div class="text-center mt-4">
-				{% if article.isActif %}
-					<p class="card-text">Publié &#x2705;</p>
+				{{ article.actif ? 'Publié' : 'Non publié' }}
 
-				{% else %}
-					<p class="card-text">Non publié &#x274C;</p>
-
-				{% endif %}
 			</div>
 		{% endif %}
 

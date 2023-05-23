@@ -1,0 +1,16 @@
+<p class="text-center">{{categorie.titre}}</p>
+{% if app.request.get('_route') == 'admin_categorie_index' %}
+	<div class="d-flex justify-content-between">
+		<a href="{{path('admin_categorie_update', {id:categorie.id})}}" class="btn btn-warning ">Modifier</a>
+		<form action="{{path('admin_categorie_delete',{id:categorie.id})}}" method="POST" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cet categorie ? ')">
+			<input type="hidden" name="id" value="{categorie.id}">
+			<input type="hidden" name="token" value="{{csrf_token('delete' ~ categorie.id)}}">
+			<button type="submit" class="btn btn-danger">Supprimer</button>
+			{# ~ pour concatene #}
+		</form>
+	</div>
+	<div class="text-center mt-4">
+		{{ categorie.actif ? 'Publié' : 'Non publié' }}
+
+	</div>
+{% endif %}
