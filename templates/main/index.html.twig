@@ -5,12 +5,8 @@
 {% endblock %}
 
 {% block body %}
-	<section class="container mt-4">
-		<h1 class="text-center">Liste des articles</h1>
-		<div class="blog-list mt-4">
-			{% for article in articles %}
-				{% include "Components/_card.html.twig" %}
-			{% endfor %}
-		</div>
-	</section>
+	<h1>Homepage</h1>
+	{% for data in datas %}
+		<p>{{data}}</p>
+	{% endfor %}
 {% endblock %}

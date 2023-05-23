@@ -2,7 +2,7 @@
 	{% if article.imageName  %}
 		<img src="{{vich_uploader_asset(article)}}" alt="Image de l'article" class="blog-card-img" loading="lazy">
 	{% else %}
-		<img src="https://picsum.photos/350/250" alt="{{article.titre}}" class="blog-card-img" loading="lazy">
+		<img src="https://picsum.photos/250/250" alt="{{article.titre}}" class="blog-card-img" loading="lazy">
 	{% endif %}
 	<div class="blog-card-content">
 		<p class="blog-card-date text-muted">{{article.createdAt|format_datetime('full','none')}}</p>

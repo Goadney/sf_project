@@ -39,29 +39,24 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllWithTags(): array
+    public function findAllWithTags(bool $actif =false): array
     {
-        return $this->createQueryBuilder('a')
-        ->select('a', 'u', 'c')
+        $query = $this->createQueryBuilder('a')
+            ->select('a', 'u', 'c')
             ->leftJoin( 'a.categories','c')
-            ->innerJoin( 'a.user' , 'u')
-            ->orderBy('a.createdAt', 'DESC')
+            ->innerJoin( 'a.user' , 'u');
+            if ($actif)
+            {
+                $query->andWhere('a.actif = :actif')
+                ->setParameter('actif', $actif);
+            }
+
+            return $query->orderBy('a.createdAt', 'DESC')
             ->getQuery()
             ->getResult();
     }
 
-    public function findAllActif(): array
-    {
-        return $this->createQueryBuilder('a')
-        ->select('a', 'u', 'c')
-            ->leftJoin( 'a.categories','c')
-            ->innerJoin( 'a.user' , 'u')
-            ->andWhere('a.actif = 1')
-            ->orderBy('a.createdAt', 'DESC')
-            ->getQuery()
-            ->getResult();
-    }
-
+   
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

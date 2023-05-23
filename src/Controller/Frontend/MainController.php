@@ -19,7 +19,7 @@ class MainController extends AbstractController
 
 
         return $this->render('main/index.html.twig', [
-            'articles' => $this->repo->findAllActif()
+            'datas' => ['test' => 'test']
 
         ]);
     }
