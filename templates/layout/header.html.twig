@@ -9,8 +9,11 @@
 			<div class="collapse navbar-collapse" id="collapsibleNavId">
 				<ul class="navbar-nav me-auto mt-2 mt-lg-0">
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('homepage') }}" aria-current="page">Home
+						<a class="nav-link {{app.request.get('_route')=='homepage' ? 'active' }} " href="{{ path('homepage') }}" aria-current="page">Home
 						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{app.request.get('_route')=='app_frontend_article_index' ? 'active' }}" href="{{path('app_frontend_article_index')}}">Article</a>
 					</li>
 
 				</ul>

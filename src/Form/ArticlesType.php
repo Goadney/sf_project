@@ -34,6 +34,7 @@ class ArticlesType extends AbstractType
                         ->orderBy('c.titre', 'ASC');
                        
                 },
+                'required' => false,
                 'choice_label' => 'titre',  
                 'expanded' => false,
                 'multiple' => true,
