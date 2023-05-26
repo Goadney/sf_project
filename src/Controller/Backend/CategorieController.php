@@ -106,5 +106,4 @@ class CategorieController extends AbstractController
         $this->addFlash('error', 'token invalid');
         return $this->redirectToRoute('admin_categorie_index');
     }
-
 }

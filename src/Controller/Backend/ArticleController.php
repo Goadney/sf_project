@@ -5,9 +5,11 @@ namespace App\Controller\Backend;
 use App\Entity\Article;
 use App\Form\ArticlesType;
 use App\Repository\ArticleRepository;
+use PHPUnit\Util\Json;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -107,5 +109,18 @@ class ArticleController extends AbstractController
         }
         $this->addFlash('error', 'token invalid');
         return $this->redirectToRoute('admin_article_index');
+    }
+
+    #[Route('/switch/{id}', name: '_switch', methods: ['GET'])]
+
+    public function switchVisibilityArticle(?Article $article, Request $request): JsonResponse
+    {
+        if (!$article instanceof Article) {
+            return new JsonResponse('Article not found', 404);
+        }
+        $article->setActif(!$article->isActif());
+        $this->repo->save($article, true);
+
+        return new JsonResponse('Visibility changed', 200);
     }
 }

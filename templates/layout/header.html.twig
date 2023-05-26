@@ -42,8 +42,14 @@
 				{% if app.user %}
 					{# verifier si un user est connecté #}
 					<a href="{{ path('app_logout') }}" class=" btn btn-warning btn-sm">Déconnexion</a>
+					<a href="{{ path('app_frontend_user_info') }}" class=" btn btn-warning btn-sm">Mon compte
+						<i class="bi bi-person-circle"></i>
+					</a>
+
 				{% else %}
 					<a href="{{ path('app_login') }}" class=" btn btn-info  btn-sm">Connexion</a>
+					<a href="{{ path('app_frontend_user_register') }}" class=" btn btn-success btn-sm">Inscription</a>
+
 
 				{% endif %}
 
