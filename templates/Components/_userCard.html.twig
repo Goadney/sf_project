@@ -7,3 +7,6 @@
 <td>
 	<a href="{{path('admin_user_update', {id:user.id})}}" class="btn btn-warning ">Modifier</a>
 </td>
+<td>
+	{% include "Backend/User/_deleteForm.html.twig" %}
+</td>
