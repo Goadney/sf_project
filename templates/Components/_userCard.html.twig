@@ -1,0 +1,9 @@
+<td table-hover>{{user.id}}</td>
+<td>{{user.email}}</td>
+<td>['
+	{{user.roles|join(' ,')}}
+	']</td>
+
+<td>
+	<a href="{{path('admin_user_update', {id:user.id})}}" class="btn btn-warning ">Modifier</a>
+</td>

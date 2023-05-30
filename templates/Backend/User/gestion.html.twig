@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags("admin") }}
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+	{{ encore_entry_script_tags("admin") }}
+{% endblock %}
+{% block title %}
+	Admin des users |
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-4">
+		<h1 class="text-center">Administration des users</h1>
+		<a href="{{ path('admin_article_create') }}" class="btn btn-secondary">Créer un article</a>
+		<div class="blog-list mt-4">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr table-active>
+						<th span="col">Id</th>
+						<th span="col">email</th>
+						<th span="col">roles</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr>
+
+							{% include "Components/_userCard.html.twig" %}
+						</tr>
+
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	</section>
+{% endblock %}
