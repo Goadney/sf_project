@@ -1,0 +1,14 @@
+App\Entity\User:
+  userAdmin:
+    email: "admin@localhost"
+    password: "<hashPassword('Test1234')>"
+    firstName: "admin"
+    lastName: "admin"
+    roles: ["ROLE_ADMIN"]
+
+  user{1..10}:
+    email: "user<current()>\@domain.com"
+    password: "<hashPassword('Test1234')>"
+    firstName: "<firstName()>"
+    lastName: "<lastName()>"
+    roles: ["ROLE_USER"]
